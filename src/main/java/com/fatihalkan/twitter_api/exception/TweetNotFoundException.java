@@ -1,4 +1,4 @@
 package com.fatihalkan.twitter_api.exception;
 
-public class UserException {
+public class TweetNotFoundException {
 }
