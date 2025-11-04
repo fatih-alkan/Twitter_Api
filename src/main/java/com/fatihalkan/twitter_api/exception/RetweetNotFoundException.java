@@ -1,4 +1,9 @@
 package com.fatihalkan.twitter_api.exception;
 
-public class RetweetNotFoundException {
+import org.springframework.http.HttpStatus;
+
+public class RetweetNotFoundException extends TwitterException{
+    public RetweetNotFoundException(String message) {
+        super(message, HttpStatus.NOT_FOUND);
+    }
 }

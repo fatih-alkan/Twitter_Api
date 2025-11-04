@@ -1,4 +1,9 @@
 package com.fatihalkan.twitter_api.exception;
 
-public class TweetNotFoundException {
+import org.springframework.http.HttpStatus;
+
+public class TweetNotFoundException extends TwitterException{
+    public TweetNotFoundException(String message) {
+        super(message, HttpStatus.NOT_FOUND);
+    }
 }

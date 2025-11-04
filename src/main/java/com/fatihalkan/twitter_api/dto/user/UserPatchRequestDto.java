@@ -1,7 +1,4 @@
-package com.fatihalkan.twitter_api.dto;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.*;
+package com.fatihalkan.twitter_api.dto.user;
 
 public record UserPatchRequestDto(
         String userName,

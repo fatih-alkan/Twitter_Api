@@ -1,9 +1,7 @@
-package com.fatihalkan.twitter_api.dto;
+package com.fatihalkan.twitter_api.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
-import lombok.ToString;
 
 public record UserRequestDto(
         @JsonProperty("user_name")

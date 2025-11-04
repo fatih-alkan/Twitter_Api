@@ -1,4 +1,9 @@
 package com.fatihalkan.twitter_api.exception;
 
-public class CommentNotFoundException {
+import org.springframework.http.HttpStatus;
+
+public class CommentNotFoundException extends TwitterException {
+    public CommentNotFoundException(String message) {
+        super(message, HttpStatus.NOT_FOUND);
+    }
 }
