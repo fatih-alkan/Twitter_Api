@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/retweets")
+@RequestMapping("/retweet")
 public class RetweetController {
 
     @Autowired

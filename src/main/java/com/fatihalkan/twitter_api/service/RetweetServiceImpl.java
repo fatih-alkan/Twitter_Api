@@ -9,6 +9,7 @@ import com.fatihalkan.twitter_api.mapper.RetweetMapper;
 import com.fatihalkan.twitter_api.repository.RetweetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,7 @@ public class RetweetServiceImpl implements RetweetService{
                 orElseThrow(()-> new RetweetNotFoundException("Retweet not found id: " + id));
 
         if (!retweet.getUser().getId().equals(user.getId())){
-            throw new RuntimeException("You can only delete your own retweets");
+            throw new AccessDeniedException("You can only delete your own retweets");
         }
         repository.deleteById(id);
     }

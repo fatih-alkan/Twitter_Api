@@ -12,6 +12,7 @@ import com.fatihalkan.twitter_api.repository.CommentRepository;
 import com.fatihalkan.twitter_api.repository.TweetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,7 @@ public class CommentServiceImpl implements CommentService{
                 orElseThrow(()-> new CommentNotFoundException("Comment Not Found id: " + id));
 
         if (!comment.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("You are not authorized to update this comment");
+            throw new AccessDeniedException("You are not authorized to update this comment");
         }
 
         comment.setText(commentRequestDto.text());
@@ -80,7 +81,16 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public void delete(Long id,UserDetails userDetails) {
+        User user = userService.findByUsername(userDetails.getUsername());
+        Comment comment = repository.findById(id).
+                orElseThrow(()-> new CommentNotFoundException("Comment Not Found id: "+id));
+        if (user.getId().equals(comment.getTweet().getUser().getId()) ||
+            user.getId().equals(comment.getUser().getId())){
+            repository.deleteById(id);
+        } else {
+            throw new AccessDeniedException("You are not authorized to delete this comment");
+        }
+
     }
 }

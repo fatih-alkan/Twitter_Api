@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
     @Autowired
@@ -36,14 +37,21 @@ public class CommentController {
         return service.getByTweetId(tweetId);
     }
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseDto create(@AuthenticationPrincipal UserDetails userDetails,
                                      @Validated @RequestBody CommentRequestDto commentRequestDto){
         return service.create(userDetails,commentRequestDto);
     }
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public CommentResponseDto update(@Positive @Min(1) @PathVariable("id") Long id,
                                      @Validated @RequestBody CommentRequestDto commentRequestDto,
                                      @AuthenticationPrincipal UserDetails userDetails){
         return service.update(id, commentRequestDto, userDetails);
+    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@Positive @Min(1) @PathVariable Long id,
+                       @AuthenticationPrincipal UserDetails userDetails){
+        service.delete(id,userDetails);
     }
 }

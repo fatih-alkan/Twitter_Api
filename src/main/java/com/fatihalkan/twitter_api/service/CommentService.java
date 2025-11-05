@@ -12,5 +12,5 @@ public interface CommentService {
     List<CommentResponseDto> getByTweetId(Long tweetId);
     CommentResponseDto create(UserDetails userDetails, CommentRequestDto commentRequestDto);
     CommentResponseDto update(Long id, CommentRequestDto commentRequestDto, UserDetails userDetails);
-    void delete(Long id);
+    void delete(Long id, UserDetails userDetails);
 }
