@@ -19,9 +19,12 @@ public class TweetMapper {
 
     public TweetResponseDto toResponseDto(Tweet tweet){
         return new TweetResponseDto(
+                tweet.getId(),
                 tweet.getContent(),
                 tweet.getUser().getId(),
-                tweet.getUser().getUserName(),
+                tweet.getUser().getUsername(),
+                tweet.getUser().getFirstName(),
+                tweet.getUser().getLastName(),
                 tweet.getCreatedAt());
     }
 }

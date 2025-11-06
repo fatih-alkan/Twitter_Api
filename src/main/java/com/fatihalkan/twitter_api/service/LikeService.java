@@ -11,4 +11,6 @@ public interface LikeService {
     LikeResponseDto getById(Long likeId);
     LikeResponseDto create(UserDetails userDetails,LikeRequestDto likeRequestDto);
     void delete(UserDetails userDetails, Long tweetId);
+    long countLikes(Long tweetId);
+    boolean isLikedByUser(UserDetails userDetails, Long tweetId);
 }

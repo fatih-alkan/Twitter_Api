@@ -47,6 +47,16 @@ public class LikeServiceImpl implements LikeService{
         return mapper.toResponse(saved);
     }
 
+    @Override
+    public boolean isLikedByUser(UserDetails userDetails, Long tweetId) {
+        User user = userService.findByUsername(userDetails.getUsername());
+        return repository.findByUserIdAndTweetId(user.getId(), tweetId).isPresent();
+    }
+
+    public long countLikes(Long tweetId) {
+        return repository.countByTweetId(tweetId);
+    }
+
 
     @Override
     public void delete(UserDetails userDetails, Long tweetId) {

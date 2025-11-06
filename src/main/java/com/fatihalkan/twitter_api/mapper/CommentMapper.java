@@ -32,12 +32,20 @@ public class CommentMapper {
         comment.setText(commentRequestDto.text());
         comment.setTweet(tweet);
         comment.setUser(user);
-        comment.setCreatedAt(LocalDateTime.now());
 
         return comment;
     }
 
     public CommentResponseDto toResponse(Comment comment){
-        return new CommentResponseDto(comment.getUser().getId(), comment.getTweet().getId(), comment.getText());
+        return new CommentResponseDto(
+                comment.getId(),
+                comment.getUser().getId(),
+                comment.getTweet().getId(),
+                comment.getText(),
+                comment.getUser().getUsername(),
+                comment.getUser().getFirstName(),
+                comment.getUser().getLastName(),
+                comment.getCreatedAt()
+        );
     }
 }

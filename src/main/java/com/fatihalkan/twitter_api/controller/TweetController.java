@@ -22,6 +22,10 @@ public class TweetController {
     @Autowired
     private final TweetService service;
 
+    @GetMapping
+    public  List<TweetResponseDto> getAll(){
+        return service.getAll();
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TweetResponseDto create(@AuthenticationPrincipal UserDetails userDetails,

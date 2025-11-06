@@ -28,9 +28,9 @@ public class TweetServiceImpl implements TweetService{
 
 
     @Override
-    public List<TweetResponseDto> getAll(UserDetails userDetails) {
-        User user = userService.findByUsername(userDetails.getUsername());
-        return repository.findByUserId(user.getId()).stream().map(mapper::toResponseDto).toList();
+    public List<TweetResponseDto> getAll() {
+        List<Tweet> tweets = repository.findAll();
+        return tweets.stream().map(mapper::toResponseDto).toList();
     }
 
     @Override

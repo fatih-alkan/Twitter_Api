@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,8 +24,8 @@ public class RetweetController {
     private RetweetService service;
 
     @GetMapping
-    public List<RetweetResponseDto> getAll(@AuthenticationPrincipal UserDetails userDetails){
-        return service.getAll(userDetails);
+    public List<RetweetResponseDto> getAll(){
+        return service.getAll();
     }
 
     @GetMapping("/tweet/{tweetId}")
@@ -37,7 +38,13 @@ public class RetweetController {
             @Validated @RequestBody RetweetRequestDto retweetRequestDto){
         return service.create(userDetails, retweetRequestDto);
     }
-
+    @GetMapping("/count/{tweetId}")
+    public Map<String, Object> getRetweetCountAndStatus(@AuthenticationPrincipal UserDetails userDetails,
+                                                     @PathVariable Long tweetId) {
+        boolean retweeted = service.isRetweetsByUser(userDetails, tweetId);
+        long count = service.countRetweets(tweetId);
+        return Map.of("retweeted", retweeted, "count", count);
+    }
     @DeleteMapping("/{id}")
     public void delete(@Positive @Min(1) @PathVariable("id") Long id,
                        @AuthenticationPrincipal UserDetails userDetails){

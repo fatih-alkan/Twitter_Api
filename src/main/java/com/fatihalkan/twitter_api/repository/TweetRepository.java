@@ -10,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface TweetRepository extends JpaRepository<Tweet,Long> {
-    @Query("SELECT t FROM Tweet t WHERE t.user.id = :userId")
+    @Query("SELECT t FROM Tweet t WHERE t.user.id = :userId ORDER BY t.createdAt DESC")
     List<Tweet> findByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT t FROM Tweet t ORDER BY t.createdAt DESC")
+    List<Tweet> findAll();
 }

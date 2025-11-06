@@ -53,9 +53,6 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<CommentResponseDto> getByTweetId(Long tweetId) {
         List<Comment> comments = repository.findByTweetId(tweetId);
-        if (comments.isEmpty()){
-            throw  new TweetNotFoundException("No comments found for tweet id: "+tweetId);
-        }
         return comments.stream().map(mapper::toResponse).toList();
     }
 

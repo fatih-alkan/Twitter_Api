@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping
@@ -36,7 +37,13 @@ public class LikeController {
                                   @Validated @RequestBody LikeRequestDto likeRequestDto){
         return service.create(userDetails,likeRequestDto);
     }
-
+    @GetMapping("/like/count/{tweetId}")
+    public Map<String, Object> getLikeCountAndStatus(@AuthenticationPrincipal UserDetails userDetails,
+                                                     @PathVariable Long tweetId) {
+        boolean liked = service.isLikedByUser(userDetails, tweetId);
+        long count = service.countLikes(tweetId);
+        return Map.of("liked", liked, "count", count);
+    }
     @PostMapping("/dislike")
     public void delete(
             @AuthenticationPrincipal UserDetails userDetails,

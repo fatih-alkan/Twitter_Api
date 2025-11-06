@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TweetService {
     //GET
-    List<TweetResponseDto> getAll(UserDetails userDetails);
+    List<TweetResponseDto> getAll();
     TweetResponseDto getById(Long id);
     //POST
     TweetResponseDto create(UserDetails userDetails,TweetRequestDto tweetRequestDto);

@@ -28,9 +28,8 @@ public class RetweetServiceImpl implements RetweetService{
 
 
     @Override
-    public List<RetweetResponseDto> getAll(UserDetails userDetails) {
-        User user = userService.findByUsername(userDetails.getUsername());
-        List<Retweet> retweets = repository.findByUserId(user.getId());
+    public List<RetweetResponseDto> getAll() {
+        List<Retweet> retweets = repository.findAll();
         return retweets.stream().map(mapper::toResponse).toList();
     }
 
@@ -57,5 +56,16 @@ public class RetweetServiceImpl implements RetweetService{
             throw new AccessDeniedException("You can only delete your own retweets");
         }
         repository.deleteById(id);
+    }
+
+    @Override
+    public long countRetweets(Long tweetId) {
+        return repository.countByTweetId(tweetId);
+    }
+
+    @Override
+    public boolean isRetweetsByUser(UserDetails userDetails, Long tweetId) {
+        User user = userService.findByUsername(userDetails.getUsername());
+        return repository.findByUserIdAndTweetId(user.getId(), tweetId).isPresent();
     }
 }

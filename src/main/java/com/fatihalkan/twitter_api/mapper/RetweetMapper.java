@@ -8,14 +8,12 @@ import com.fatihalkan.twitter_api.entity.User;
 import com.fatihalkan.twitter_api.exception.TweetNotFoundException;
 import com.fatihalkan.twitter_api.repository.TweetRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class RetweetMapper {
 
-    @Autowired
     private final TweetRepository tweetRepository;
 
     public Retweet toEntity(RetweetRequestDto retweetRequestDto, User user){
@@ -29,8 +27,12 @@ public class RetweetMapper {
 
     public RetweetResponseDto toResponse(Retweet retweet){
         return new RetweetResponseDto(
+                retweet.getId(),
                 retweet.getUser().getId(),
-                retweet.getUser().getUserName(),
+                retweet.getTweet().getUser().getId(),
+                retweet.getTweet().getUser().getUsername(),
+                retweet.getUser().getFirstName(),
+                retweet.getUser().getLastName(),
                 retweet.getTweet().getId(),
                 retweet.getTweet().getContent(),
                 retweet.getCreatedAt());

@@ -18,4 +18,7 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
     Optional<Like> findByUserIdAndTweetId(@Param("userId") Long userId,
                                           @Param("tweetId") Long tweetId);
 
+
+    @Query("SELECT COUNT(l) FROM Like l WHERE l.tweet.id = :tweetId")
+    long countByTweetId(@Param("tweetId") Long tweetId);
 }

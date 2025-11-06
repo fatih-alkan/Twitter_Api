@@ -22,7 +22,7 @@ public class UserMapper {
 
     public UserResponseDto toResponseDto(User user){
         return new UserResponseDto(
-                user.getUserName(),
+                user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail()
