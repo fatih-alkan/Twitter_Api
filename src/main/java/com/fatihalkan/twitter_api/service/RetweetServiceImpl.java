@@ -68,4 +68,9 @@ public class RetweetServiceImpl implements RetweetService{
         User user = userService.findByUsername(userDetails.getUsername());
         return repository.findByUserIdAndTweetId(user.getId(), tweetId).isPresent();
     }
+
+    @Override
+    public List<RetweetResponseDto> findByUserId(Long id){
+        return repository.findByUserId(id).stream().map(mapper::toResponse).toList();
+    }
 }

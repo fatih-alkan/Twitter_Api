@@ -13,4 +13,5 @@ public interface RetweetService {
     void delete(Long id, UserDetails userDetails);
     long countRetweets(Long tweetId);
     boolean isRetweetsByUser(UserDetails userDetails, Long tweetId);
+    List<RetweetResponseDto> findByUserId(Long id);
 }

@@ -27,9 +27,13 @@ public class RetweetController {
     public List<RetweetResponseDto> getAll(){
         return service.getAll();
     }
+    @GetMapping("/user/{id}")
+    public List<RetweetResponseDto> getByUserId(@Positive @Min(1) @PathVariable("id") Long id){
+        return service.findByUserId(id);
+    }
 
     @GetMapping("/tweet/{tweetId}")
-    public List<RetweetResponseDto> getByTweetId(@Positive @Min(1) @PathVariable Long tweetId) {
+    public List<RetweetResponseDto> getByTweetId(@Positive @Min(1) @PathVariable("id") Long tweetId) {
         return service.getByTweetId(tweetId);
     }
 

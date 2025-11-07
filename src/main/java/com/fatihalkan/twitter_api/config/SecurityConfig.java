@@ -30,7 +30,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ Authentication Provider — userDetailsService + passwordEncoder bağlanır
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -39,7 +38,6 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    // ✅ AuthenticationManager Bean (Spring Security 6 standardı)
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
